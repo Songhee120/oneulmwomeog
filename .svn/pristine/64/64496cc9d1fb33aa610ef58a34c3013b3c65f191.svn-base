@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="history">
+	<select id="history_list" parameterType="_int" resultType="historyVO">
+		SELECT * FROM TBL_HISTORY WHERE MEM_NO = #{mem_no} ORDER BY HISTORY_DATE DESC
+	</select>
+	
+	<select id="selectHistory" parameterType="_int" resultType="historyVO">
+		SELECT * FROM TBL_HISTORY WHERE HISTORY_NO = #{history_no}
+	</select>
+	
+	<insert id="insertHistory" parameterType="historyVO">
+		INSERT INTO TBL_HISTORY VALUES(HIS_SEQ.NEXTVAL, #{mem_no}, #{res_name}, #{res_address}, #{res_url}, SYSDATE)
+	</insert>
+	
+	<select id="allHistory" parameterType="_int" resultType="_int">
+		SELECT HISTORY_NO FROM (SELECT * FROM TBL_HISTORY ORDER BY HISTORY_DATE DESC) WHERE MEM_NO = #{mem_no}
+	</select>
+	
+	<delete id="deleteHistory" parameterType="_int">
+		DELETE FROM TBL_HISTORY WHERE HISTORY_NO = #{history_no}
+	</delete>
+	
+	<select id="check">
+		SELECT (TRUNC(SYSDATE, 'MI')-TO_DATE(,'YYYY-MM-DD HH24:MI:SS')) * 1440 FROM DUAL
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

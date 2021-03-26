@@ -1,0 +1,40 @@
+package com.astral.app.confirm.dao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.astral.app.confirm.vo.ConfirmVO;
+import com.astral.app.notice.vo.NoticeVO;
+import com.astral.mybatis.config.SqlMapConfig;
+
+public class ConfirmDAO {
+	private static final int KEY = 3;
+
+	SqlSessionFactory sessionf = SqlMapConfig.getSqlMapInstance();
+	SqlSession sql_session;
+	
+	public ConfirmDAO() {
+		// 세션 팩토리로 세션을 열어주고 모든 쿼리문은 auto 커밋으로 설정
+		sql_session = sessionf.openSession(true);
+	}
+	
+	//인증목록 리스트
+		public List<ConfirmVO> getConfirmList(int startRow, int endRow){
+			Map<String, Object> confirm = new HashMap<String, Object>();
+			//리스트를 가져오기에 기본
+			confirm.put("startRow", startRow);
+			confirm.put("endRow", endRow);
+			List<ConfirmVO> confirm_list = null;
+		
+			
+			return confirm_list;
+			
+			
+		}
+	
+	
+}

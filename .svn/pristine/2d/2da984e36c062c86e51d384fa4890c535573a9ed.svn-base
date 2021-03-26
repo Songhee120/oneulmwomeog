@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.astral.app.member.vo.MemberVO" alias="memberVO"/>
+		<typeAlias type="com.astral.app.review.vo.ReviewVO" alias="reviewVO"/>
+		<typeAlias type="com.astral.app.review.vo.FilesVO" alias="filesVO"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+				<property name="username" value="astral"/>
+				<property name="password" value="1234"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/astral/mybatis/sql/member.xml"/>
+		<mapper resource="com/astral/mybatis/sql/review.xml"/>
+		<mapper resource="com/astral/mybatis/sql/files.xml"/>
+	</mappers>
+</configuration>

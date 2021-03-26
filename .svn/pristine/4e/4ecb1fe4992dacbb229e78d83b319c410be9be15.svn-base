@@ -1,0 +1,246 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<!DOCTYPE HTML>
+<!--
+   Astral by Pixelarity
+   pixelarity.com | hello@pixelarity.com
+   License: pixelarity.com/license
+-->
+<html>
+
+<head>
+
+<title>비밀번호 수정</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../assets/css/main.css" />
+<link rel="stylesheet" href="../assets/css/astral.css?ver=4" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+<noscript>
+   <link rel="stylesheet" href="../assets/css/noscript.css" />
+</noscript>
+</head>
+<style>
+{
+   font-family: 'Do Hyeon', sans-serif;
+}
+span.holy {
+   font-family: 궁서;
+   font-size: 40px;
+   color: pink;
+}
+
+#user_div{
+   height:100%;
+   width:35%;
+   padding-top:0px;
+}
+</style>
+<body class="is-preload">
+<c:set var="boardBean" value="${requestScope.boardBean}"/>
+   <!-- Wrapper-->
+   <div id="wrapper">
+
+      <!-- Nav -->
+      <nav id="nav">
+         <a href="#changemypw" class="icon solid fa-user"><span>비밀번호 변경</span></a>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+         <article id="changemypw" class="panel">
+            <header style="text-align: center;">
+               <a href="login_index.jsp" style="text-decoration:none; font-size:45px; color:#ffcccc; font-weight:900;">오늘뭐먹</a>
+            </header>
+            <form action="${pageContext.request.contextPath}/member/MemberChangePw.me?seq=${boardBean.getMem_id()}" method="post" name="pwform">
+               <div class="col-12" style="margin: 0 auto; display: block;">
+                  <label id="jogin_label">현재 비밀번호
+                  <input id="mem_pw" type="password" name="mem_pw"/>
+                  <span class="jogin_span" id="pw_error"></span>
+                  </label>
+               </div>
+               <div class="col-12" style="margin: 0 auto; display: block;">
+                  <label id="jogin_label">새로운 비밀번호
+                  <input id="mem_newpw" type="password" name="mem_newpw"/>
+                  <span class="jogin_span" id="newpw_error"></span>
+                  </label>
+               </div>
+               <div class="col-12">
+                  <label id="jogin_label">새로운 비밀번호 확인
+                  <input required type='password' name='mem_renewpw' id="mem_renewpw"/>   
+                  <span class="jogin_span" id="mem_renewpw_error"></span>                    
+                  </label>
+               </div>
+            <div class="col-12" style="margin: 0 auto; display: block;">                  
+                  <div style="padding:0px;"><label for="input_email" style="margin:0px;font-size:20px;font-weight:bold;">이메일 인증</label></div>
+                  <div style="padding:0px;">
+                     <input type='text' id="input_email" name='input_pw2_email' style="width:75%;margin-left:0px;display:inline-block;" />
+                     <input type="button" onclick="mean_pw()" id="mean_btn" name="pw_mean_btn"  value="인증">
+                  </div>
+               </div>   
+               <div class="col-12" style="margin: 0 auto; display: block;">
+                  <div style="padding:0px;"><label style="margin:0px;font-size:20px;font-weight:bold;">인증번호 입력</label></div>
+                  <div style="padding:0px;">
+                     <input type='text' name='pw_mean' readonly style="width:75%;margin-left:0px;display:inline-block;" />
+                     <input type="button" id="resubmit_btn" value="재전송">
+                  </div>
+               </div> 
+               <div class="col-12" style="margin-top:10px; text-align: center;">
+                  <input type="button" class="cmp_btn" id="cmp_btn" value="확인" onclick="changemypw()">
+                  <button type="button" class="cmp_btn" onclick="cmp_cancel()">취소</button>
+               </div>
+             
+            </form>
+         </article>
+      </div>
+
+      <!-- Footer -->
+      <div id="footer">
+         <ul class="copyright">
+            <li>&copy; Untitled.</li>
+         </ul>
+      </div>
+
+   </div>
+
+   <!-- Scripts -->
+   <script src="../assets/js/jquery.min.js"></script>
+   <script src="../assets/js/browser.min.js"></script>
+   <script src="../assets/js/breakpoints.min.js"></script>
+   <script src="../assets/js/util.js"></script>
+   <script src="../assets/js/main.js"></script>
+   <script src="../assets/js/astral.js?ver=1"></script>
+
+</body>
+<script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>var contextPath = "${pageContext.request.contextPath}";</script>
+<script>
+
+
+	function changemypw(){
+		frm = document.pwform;
+		var msg = "필수 입력 사항입니다.";
+		var check = false;
+		if (frm.mem_newpw.value == "") {
+			$("#newpw_error").text(msg);
+			check = true;
+		} else {
+			//8자리 이상, 대문자/소문자/숫자/특수문자 모두 포함되어 있는 지 검사
+			var reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+			var hangleCheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+			var err_msg = null;
+			var pw_check = false;
+			if (!reg.test(frm.mem_newpw.value)) {
+				err_msg = "비밀번호는 8자리 이상이며, 소문자/숫자/특수문자 모두 포함해야 합니다.";
+				pw_check = true;check = true;
+			} else if (/(\w)\1\1\1/.test(frm.mem_newpw.value)) {
+				err_msg = "같은 문자는 4번 이상 사용하실 수 없습니다.";
+				pw_check = true;check = true;
+			} else if (hangleCheck.test(frm.mem_newpw.value)) {
+				err_msg = "비밀번호에 한글을 사용할 수 없습니다.";
+				pw_check = true;check = true;
+			} else if ((frm.mem_newpw.value.search(/\s/) != -1)) {
+				err_msg = "비밀번호에 공백 없이 입력해주세요.";
+				pw_check = true;check = true;
+			}
+
+			//아이디를 비교하려면 세션에 저장이 되어있어야하는데 세션에 아이디를 저장 할 수는 없다.
+			/* else if (frm.mem_pw.value.search(form.join_email.value) > -1) {
+				err_msg = "비밀번호에 아이디는 포함 할 수 없습니다.";
+				pw_check = true;
+			} */ 
+			if (pw_check) {
+				$("#newpw_error").text(err_msg);
+			} else {
+				$("#newpw_error").text("");
+			}
+		}
+		
+		if(frm.mem_renewpw.value == ""){
+			$("#mem_renewpw_error").text(msg);
+			check = true;
+		}else{
+			if(frm.mem_renewpw.value != frm.mem_newpw.value){
+				$("#mem_renewpw_error").text("비밀번호가 같지 않습니다.");
+				check = true;
+			}else{
+				$("#mem_renewpw_error").text("");
+			}
+		}
+		
+		if(!check){
+			frm.submit();
+		}
+	}
+	$("input[name='pw_mean_btn']").click(function(){
+		var mail = $("input[name='input_pw2_email']").val();
+		if(mail == ""){
+			alert("이메일을 입력해주세요.");
+		}else{
+			$.ajax({
+				url : contextPath + "/member/MemberSendMail.me?mail=" + mail,
+				//id를 보내야하므로 get
+				type : "get",
+				//출력은 text로 받는다.
+				dataType : "text",
+				//성공
+				success : function(result) {
+					//결과의 공백을 제거하고 비교하여 ok이면 사용 가능
+					var msg = null;
+					if (result.trim() == "ok") {
+						msg = "인증번호를 발송하였습니다.";
+						check = true;
+					} else {
+						msg = "발송 실패";
+					}
+					alert(msg);
+				},
+				error : function() {
+				}
+			})
+			
+		}
+	})
+	
+	$("input[name='resubmit_btn']").click(function(){
+		var mail = $("input[name='input_pw2_email']").val();
+		
+		if($("input[name='id_mean']").attr("readOnly")){
+			return false;
+		}
+		
+		if(mail == ""){
+			alert("이메일을 입력해주세요.");
+		}else{
+			$.ajax({
+				url : contextPath + "/member/MemberSendMail.me?mail=" + mail,
+				//id를 보내야하므로 get
+				type : "get",
+				//출력은 text로 받는다.
+				dataType : "text",
+				//성공
+				success : function(result) {
+					//결과의 공백을 제거하고 비교하여 ok이면 사용 가능
+					var msg = null;
+					if (result.trim() == "ok") {
+						msg = "인증번호를 발송하였습니다.";
+						check = true;
+					} else {
+						msg = "발송 실패";
+					}
+					alert(msg);
+				},
+				error : function() {
+				}
+			})
+			
+		}
+	})
+
+</script>
+</html>

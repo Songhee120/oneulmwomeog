@@ -1,0 +1,53 @@
+package com.astral.app.food.vo;
+
+public class FoodVO {
+
+	private String food_name;
+	private int time_no;
+	private int ppl_cnt;
+	private int distance;
+	private int price;
+	private int starv_lv;
+	
+	public FoodVO() {;}
+	
+	public String getFood_name() {
+		return food_name;
+	}
+	public void setFood_name(String food_name) {
+		this.food_name = food_name;
+	}
+	public int getTime_no() {
+		return time_no;
+	}
+	public void setTime_no(int time_no) {
+		this.time_no = time_no;
+	}
+	public int getPpl_cnt() {
+		return ppl_cnt;
+	}
+	public void setPpl_cnt(int ppl_cnt) {
+		this.ppl_cnt = ppl_cnt;
+	}
+	public int getDistance() {
+		return distance;
+	}
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public int getStarv_lv() {
+		return starv_lv;
+	}
+	public void setStarv_lv(int starv_lv) {
+		this.starv_lv = starv_lv;
+	}
+	
+	
+	
+}

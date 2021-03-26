@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<!--
+   Astral by Pixelarity
+   pixelarity.com | hello@pixelarity.com
+   License: pixelarity.com/license
+-->
+<html>
+
+<head>
+
+<title>아이디 찾기</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="assets/css/astral.css?ver=6" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+<noscript>
+   <link rel="stylesheet" href="assets/css/noscript.css" />
+</noscript>
+</head>
+<style>
+   /* 유효성 검사 css 2020-11/27*/
+   /* user_password.html */
+   /* 비밀번호 찾기 부분 아이디 유효성 검사입니다. */
+   .message.bad {
+       font-size: 13px;
+       color:#E91E63;
+       display: none;
+   }
+   .message.good {
+       font-size: 13px;
+       color:#2196F3;
+       display: none;
+   }
+   .messageEmailBox.good .good{
+       display: inline;
+   }
+   .messageEmailBox.bad .bad{
+       display: inline;
+   }
+</style>
+<style>
+{
+   font-family: 'Do Hyeon', sans-serif;
+}
+
+
+.btn {
+   background-color: #fff;
+   color: #616161;
+   border: 2px solid #bdbdbd;
+   border-radius: 10px;
+   width: 160px;
+   height: 80px;
+   margin: 10px;
+   font-size: 18px;
+}
+
+span.holy {
+   font-family: 궁서;
+   font-size: 40px;
+   color: pink;
+}
+</style>
+<body class="is-preload">
+
+   <!-- Wrapper-->
+   <div id="wrapper">
+
+      <!-- Nav -->
+      <nav id="nav">
+         <a href="#signup" class="icon solid fa-sign-in-alt"><span>회원가입</span></a>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+         <!--다시 만들어야겠다.-->
+         <article id="signup" class="panel">
+            <header style="text-align: center;">
+               <a href="index.html#home" style="text-decoration:none; font-size:45px; color:#ffcccc; font-weight:900;">오늘뭐먹</a>
+            </header>
+            <form>
+               <div class="col-12">
+                  <label id="jogin_label">아이디 
+                  <input type="text" name="join_email"/></label>
+                  <span class="jogin_span" id="id_result"></span>
+               </div>
+               
+               <div class="col-12">
+                  <div style="padding:0px;width:49%;display:inline-block"><label for="join_password" id="jogin_label">비밀번호</label></div>
+                  <div style="padding:0px;width:49%;float:right;"><label for="re_password" id="jogin_label">비밀번호 재확인</label></div>
+                  <div style="padding:0px;width:49%;display:inline-block;">
+                  	<input type='password' name='join_password' id="join_password"/>
+                  	<div >
+                  	<span class="jogin_span" id="pw_result"></span>
+                  	</div>
+                  </div>
+                  <div style="padding:0px;width:49%;margin-left:2%;float:right;">
+                  	<input type='password' name="re_password" id="re_password" />
+                  	<div><span class="jogin_span" id="re_pw_result"></span></div>
+                  </div>
+               </div>
+               
+               <div class="col-12">
+                  <div style="padding:0px;width:49%;display:inline-block"><label for="name" id="jogin_label">이름</label></div>
+                  <div style="padding:0px;width:49%;float:right;"><label for="nickname" id="jogin_label">닉네임</label></div>
+                  <div style="padding:0px;width:49%;display:inline-block;">
+                  	<input type='text' name="name" id="name" />
+                  	<span class="jogin_span" id="name_result"></span>
+                  </div>
+                  <div style="padding:0px;width:49%;margin-left:2%;float:right;">
+                  	<input type='text' name="nickname" id="nickname" />
+                  </div>
+               </div>
+               
+               <div class="col-12">
+                  <label id="jogin_label">생년월일</label> 
+                  <select id="year">
+                  </select>
+                  <select id="mon">
+                  </select>
+                  <select id="day">
+                  </select>                                               
+                  <span class="jogin_span" id="birth_result"></span>
+               </div>
+               <div class="col-12" style="margin: 0 auto; display: block;">                  
+                  <div style="padding:0px;"><label for="tel" id="jogin_label">전화번호(-제외)</label></div>
+                  <div style="padding:0px;">
+                  	<input type='text' name='tel' style="width:75%;margin-left:0px;display:inline-block;" />
+                  	<input type="button" onclick="mean()" id="mean_btn" value="인증">
+                  	<span class="jogin_span" id="tel_result"></span>
+                  </div>
+               </div>   
+               <div class="col-12" style="margin: 0 auto; display: block;">
+                  <div style="padding:0px;"><label id="jogin_label">인증번호</label></div>
+                  <div style="padding:0px;">
+                  	<input type='text' name='mean_tel' readonly style="width:75%;margin-left:0px;display:inline-block;" />
+                  	<input type="button" id="resubmit_btn" value="재전송">
+                  </div>
+               </div>   
+               <div class="col-12" style="margin: 0 auto; text-align: center;">
+                  <button type="button" class="btn"
+                     style="padding: 0; width: 120px; height: 50px;"onclick="join_cancel()">취소</button>               
+                  <input type="button" class="join_btn" id="join_btn" onclick="join_check()" value="가입하기">
+               </div>
+            </form>
+         </article>
+
+      </div>
+
+      <!-- Footer -->
+      <div id="footer">
+         <ul class="copyright">
+            <li>&copy; Untitled.</li>
+         </ul>
+      </div>
+
+   </div>
+
+   <!-- Scripts -->
+   <script src="assets/js/jquery.min.js"></script>
+   <script src="assets/js/browser.min.js"></script>
+   <script src="assets/js/breakpoints.min.js"></script>
+   <script src="assets/js/util.js"></script>
+   <script src="assets/js/main.js"></script>
+   <script src="assets/js/astral.js?ver=4"></script>
+
+</body>
+<script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		setDateBox();
+	})
+	
+	function setDateBox(){
+		var date = new Date();
+		var year = "";
+		var com_year = date.getFullYear();
+		
+		$("#year").append("<option value=''>년도</option");
+		
+		for(var i = (com_year - 100);i <= (com_year + 1); i++){
+			$("#year").append("<option value='"+ i +"'>" + i + "</option>");
+		}
+		
+		var month = "";
+		
+		$("#mon").append("<option value=''>월</option>");
+		
+		for(var i=1;i<=12;i++){
+			$("#mon").append("<option value='"+ i +"'>" + i + "</option>");
+		}
+		
+		var day = "";
+		
+		$("#day").append("<option value=''>일</option>");
+		
+		for(var i=1;i<=31;i++){
+			$("#day").append("<option value='"+ i +"'>" + i + "</option>");
+		}
+	}
+</script>
+</html>

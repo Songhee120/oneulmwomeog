@@ -1,0 +1,35 @@
+package com.astral.app.review;
+
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.review.dao.HeartDAO;
+
+public class ReviewHeartOkAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		
+		HashMap<String, Object> m = new HashMap<>();
+		m.put("review_no", req.getParameter("review_no"));
+		m.put("mem_no", req.getParameter("mem_no"));
+		
+		HeartDAO h_dao = new HeartDAO();
+		
+		int result = h_dao.heart_check(m);
+		
+		if(result == 0) {
+			System.out.println("들어옴1");
+			h_dao.heart_update(m);
+			
+		}else {
+			System.out.println("들어옴2");
+			h_dao.heart_delete(m);
+		}
+		return null;
+	}
+}

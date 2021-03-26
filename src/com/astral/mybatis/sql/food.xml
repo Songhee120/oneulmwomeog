@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="food">
+	<!--동적쿼리-->
+	<select id="selectFood" parameterType="map" resultType="string">
+		SELECT FOOD_NAME FROM TBL_FOOD WHERE
+		<choose>
+			<!--선택x-->
+			<when test="ppl_count == 0 and price == 0 and starv_level == 0">
+				MAIN_NO = #{time} OR SUB_NO = #{time} OR MAIN_NO = 6
+			</when>
+			<!--인원-->
+			<when test="ppl_count != 0 and price == 0 and starv_level == 0">
+				(MAIN_NO = #{time} OR SUB_NO = #{time} OR MAIN_NO = 6) AND PPL_COUNT = #{ppl_count}
+			</when>
+			<!--가격-->
+			<when test="ppl_count == 0 and price != 0 and starv_level == 0">
+				(MAIN_NO = #{time} OR SUB_NO = #{time} OR MAIN_NO = 6) AND PRICE = #{price}
+			</when>
+			<!--굶주림-->
+			<when test="ppl_count == 0 and price == 0 and starv_level != 0">
+				(MAIN_NO = #{time} OR SUB_NO = #{time} OR MAIN_NO = 6) AND STARV_LEVEL = #{starv_level}
+			</when>
+			<!--인원, 가격-->
+			<when test="ppl_count != 0 and price != 0 and starv_level == 0">
+				(MAIN_NO = #{time} OR SUB_NO = #{time} OR MAIN_NO = 6) AND PPL_COUNT = #{ppl_count} AND PRICE = #{price}
+			</when>
+			<!--인원, 굶주림-->
+			<when test="ppl_count != 0 and price == 0 and starv_level != 0">
+				(MAIN_NO = #{time} OR SUB_NO = #{time} OR MAIN_NO = 6) AND PPL_COUNT = #{ppl_count} AND STARV_LEVEL = #{starv_level}
+			</when>
+			<!--가격, 굶주림-->
+			<when test="ppl_count == 0 and price != 0 and starv_level != 0">
+				(MAIN_NO = #{time} OR SUB_NO = #{time} OR MAIN_NO = 6) AND STARV_LEVEL = #{starv_level} AND PRICE = #{price}
+			</when>
+			<!--전부-->
+			<when test="ppl_count != 0 and price != 0 and starv_level != 0">
+				(MAIN_NO = #{time} OR SUB_NO = #{time} OR MAIN_NO = 6) AND PPL_COUNT = #{ppl_count} AND PRICE= #{price} AND STARV_LEVEL = #{starv_level}
+			</when>
+		</choose>
+	</select>	
+</mapper>

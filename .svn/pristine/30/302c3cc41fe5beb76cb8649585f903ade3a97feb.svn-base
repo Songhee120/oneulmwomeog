@@ -1,0 +1,44 @@
+package com.astral.app.review;
+
+import java.io.File;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.review.dao.FilesDAO;
+import com.astral.app.review.dao.ReviewDAO;
+import com.astral.app.review.vo.FilesVO;
+
+public class ReviewDeleteOkAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		ReviewDAO r_dao = new ReviewDAO();
+		FilesDAO f_dao = new FilesDAO();
+		
+		ActionForward forward = new ActionForward();
+		
+		String saveFolder = "C:\\web_1530_YR\\project\\workspace\\astral\\WebContent\\upload";
+		
+		int review_no = Integer.parseInt(req.getParameter("review_no"));
+		
+		for (FilesVO file : f_dao.getDetail(review_no)) {
+			File f = new File(saveFolder + "\\" + file.getFile_name());
+			
+			if(f.exists()) {
+				f.delete();
+			}
+		}
+		
+		f_dao.deleteFiles(review_no);
+		
+		r_dao.deleteReview(review_no);
+		
+		forward.setRedirect(true);
+		forward.setPath(req.getContextPath() + "/member/login_index.jsp#post");
+		
+		return forward;
+	}
+}

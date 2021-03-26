@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="scrap">
+	
+	
+    <select id="getNewScrap" parameterType="map"
+      resultType="scrapVO">
+      SELECT * FROM
+      (SELECT ROWNUM R, D.* FROM
+      (SELECT * FROM
+      TBL_SCRAP ORDER BY DATE DESC) D) A
+      WHERE A.R BETWEEN
+      ${startRow} AND ${endRow}
+	</select>
+	
+	<delete id="scrapDelete" parameterType="_int">
+		DELETE FROM TBL_SCRAP WHERE MEM_NO = #{mem_no}
+	</delete>
+	
+	
+	
+</mapper>
+
+

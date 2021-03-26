@@ -1,0 +1,443 @@
+<!DOCTYPE HTML>
+<!--
+   Astral by Pixelarity
+   pixelarity.com | hello@pixelarity.com
+   License: pixelarity.com/license
+-->
+<html>
+<head>
+<title>Untitled</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+
+<noscript>
+   <link rel="stylesheet" href="assets/css/noscript.css" />
+</noscript>
+</head>
+<style>
+*{
+   font-family: 'Black Han Sans', sans-serif;
+}
+
+.btn {
+   background-color: #fff;
+   color: #616161;
+   border: 2px solid #bdbdbd;
+   border-radius: 10px;
+   width: 160px;
+   height: 80px;
+   margin: 10px;
+   font-size: 18px;
+}
+
+input[type=button] {
+   background-color: #ffccbc;
+   border: none;
+   border-radius: 10px;
+   color: #616161;
+   padding: 16px 32px;
+   text-decoration: none;
+   margin: 4px 2px;
+   cursor: pointer;
+   width: 120px;
+   height: 60px;
+}
+
+.parent {
+   display: flex;
+   border: 2px dotted;
+   padding: 6px;
+}
+
+.parent.child {
+   flex: 1;
+   text-align: center;
+}
+
+.letf {
+   background-color: black;
+}
+
+.center {
+   background-color: gray;
+}
+
+.right {
+   background-color: yellow;
+}
+
+span.holy {
+   font-family: 궁서;
+   font-size: 40px;
+   color: pink;
+}
+
+.col-12 {
+   margin: 0 auto;
+   width: 50%;
+}
+/* 회원가입과 로그인에서의 label들의 아이디명 */
+#jogin_label{
+	margin-bottom:0px;
+}
+/* 회원가입 로그인에서의 span들의 class명 */
+.jogin_span{
+	font-size:12px;
+	color: red;
+	display: none;
+	margin-bottom:0px;
+}
+</style>
+<body class="is-preload">
+
+   <!-- Wrapper-->
+   <div id="wrapper">
+
+      <!-- Nav -->
+      <nav id="nav">
+         <a href="#" class="icon solid fa-home"><span>Home</span></a> <a
+            href="#post" class="icon solid fa-folder"><span>Post</span></a> <a
+            href="#signup" class="icon solid fa-sign-in-alt"><span>SignUp</span></a>
+         <a href="#login" class="icon solid fa-user"><span>Login</span></a>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+
+         <!-- Me -->
+         <article id="home" class="panel intro">
+            <header style="text-align: center;">
+               <div id="first_area">
+                  <div style="width: 40%; float: left;">
+                     <h1>오늘뭐먹</h1>
+                     <p style="font-size: 12px;">WE HAVE TO EAT, ONEULMWOMEOG.
+                        FOOD FOREVER.</p>
+                  </div>
+                  <div style="width: 60%; float: right;" id="first_area">
+                     <button type="submit" class="btn" name="food"
+                        onmouseover="this.style.background='#eeeeee'"
+                        onmouseout="this.style.background='white'"
+                        onclick="foodClicked()">밥 먹을래?</button>
+                     <button type="submit" class="btn" name="drink"
+                        onmouseover="this.style.background='#eeeeee'"
+                        onmouseout="this.style.background='white'"
+                        onclick="drinkClicked()">카페 갈래?</button>
+                  </div>
+               </div>
+               <div style="width: 760px; display: none; margin: 0px auto;"
+                  id="second_area">
+                  <form>
+                     <fieldset>
+                        <legend>오늘은 몇명?</legend>
+                        <select name="choice" style="width: 300px;">
+                           <option value="one">혼자</option>
+                           <option value="two">두명 이상</option>
+                        </select>
+                     </fieldset>
+                     <fieldset style="margin-top: 18px">
+                        <legend>얼마있니?</legend>
+                        <select name="choice" style="width: 300px;&gt;&lt;">
+                           <option value="one">만원 이상</option>
+                           <option value="two">만원 이하</option>
+                        </select>
+                     </fieldset>
+                  </form>
+                  <input type="button" value="CLICK" class="btn"
+                     onmouseover="this.style.background='#eeeeee'"
+                     onmouseout="this.style.background='#ffccbc'"
+                     onclick="choiceClicked()"> <br> <a
+                     onClick="window.location.reload()"
+                     style="cursor: pointer; float: right; position: static">[GO
+                     BACK]</a>
+               </div>
+               <div
+                  style="width: 760px; display: none; margin: 0px auto; float: left; text-align: center;"
+                  id="third_area">
+                  <div class="row">
+                     <div class="col-4 col-6-medium col-12-small">
+                        <a href="#" class="image fit"><img src="images/pic07.jpg"
+                           alt=""></a>
+                     </div>
+                     <div class="col-4 col-6-medium col-12-small">
+                        <br>
+                        <div style="border: 1px solid; padding: 10px;">
+                           <p>
+                              그렇다면 오늘은, <br> <span class="holy">햄버거</span>먹
+                           </p>
+
+                        </div>
+                     </div>
+                     <div class="col-4 col-6-medium col-12-small">
+                        <p style="float: right;">
+                           <a href="#" class="image fit"><img src="images/pic09.jpg"
+                              alt=""></a>
+                        </p>
+                     </div>
+                     <br>
+                     <br> <a onClick="window.location.reload()"
+                        style="cursor: pointer; float: right;">[GO BACK]</a>
+                  </div>
+               </div>
+            </header>
+         </article>
+
+
+         <!-- Work -->
+         <article id="post" class="panel">
+            <header>
+               <h2>POST</h2>
+            </header>
+            <p>여기가 게시판 구현해야할 곳!!!</p>
+            <section>
+               <div class="row">
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic01.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic02.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic03.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic04.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic05.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic06.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic07.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic08.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic09.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic10.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic11.jpg"
+                        alt=""></a>
+                  </div>
+                  <div class="col-4 col-6-medium col-12-small">
+                     <a href="#" class="image fit"><img src="images/pic12.jpg"
+                        alt=""></a>
+                  </div>
+               </div>
+            </section>
+         </article>
+         <!--회원가입 -->
+         <article id="signup" class="panel">
+            <header style="text-align: center;">
+               <h2>SignUp</h2>
+            </header>
+            <form>
+               <div class="col-12" style="margin: 0 auto; width: 50%; display: block;">
+                  <label id="jogin_label">아이디 
+                  <input type="text" name="join_email"/></label>
+                  <span class="jogin_span" id="id_result"></span>
+               </div>
+               <div class="col-12">
+                  <label id="jogin_label">비밀번호 
+                  <input type="text" name="join_password" /></label>
+                  <span class="jogin_span" id="pw_result"></span>
+               </div>
+               <div class="col-12">
+                  <label id="jogin_label">비밀번호 재확인 
+                  <input type="text" name="re_password" /></label>
+                  <span class="jogin_span" id="re_pw_result"></span>
+               </div>
+               <div class="col-12">
+                  <label id="jogin_label">이름 
+                  <input type="text" name="name" /></label>
+                  <span class="jogin_span" id="name_result"></span>
+               </div>
+               <div class="col-12">
+                  <label id="jogin_label">생년월일 
+                  <input type="text" name="birth" /></label>
+                  <span class="jogin_span" id="birth_result"></span>
+               </div>
+               <div class="col-12">
+                  <label id="jogin_label">전화번호 <input type="text"
+                     id="tel_button" name="tel" /></label>
+				  <span class="jogin_span" id="tel_result"></span>	
+               </div>
+               <div class="col-12">
+                  <div style="text-align: center; margin-top: 10px;">
+                     <button type="button" class="btn"
+                        style="padding: 0; width: 120px; height: 50px;" onclick="join_check()">JOIN</button>
+                     <button type="reset" class="btn"
+                        style="padding: 0; width: 120px; height: 50px;">RESET</button>
+                  </div>
+               </div>
+            </form>
+         </article>
+         <!--로그인-->
+         <article id="login" class="panel">
+            <header style="text-align: center;">
+               <h2>Login</h2>
+            </header>
+            <form>
+               <div class="col-12" style="margin: 0 auto; display: block;">
+                  <label id="jogin_label">아이디
+                  <input type="text" name="login_email" /></label>
+                  <span class="jogin_span" id="login_id_result"></span>
+               </div>
+               <div class="col-12">
+                  <label id="jogin_label">비밀번호
+                  <input type="text"name="login_password" /></label>
+                  <span class="jogin_span" id="login_pw_result"></span>
+               </div>
+               <div style="margin: 0 auto; width: 50%;">
+                  <span><a
+                     style="text-decoration: none; color: black; font-size: 10px;"
+                     href="#">아이디 찾기</a></span><span>·</span> <span><a
+                     style="text-decoration: none; color: black; font-size: 10px;"
+                     href="#">비밀번호 찾기</a></span>
+               </div>
+               <div class="col-12" style="margin: 0 auto; text-align: center;">
+                  <button type="button" class="btn"
+                     style="padding: 0; width: 120px; height: 50px;" onclick="login_check()">Login</button>
+               </div>
+            </form>
+         </article>
+         <!-- Contact -->
+         <article id="contact" class="panel">
+            <header>
+               <h2>Contact Me</h2>
+            </header>
+            <form action="#" method="post">
+               <div>
+                  <div class="row">
+                     <div class="col-6 col-12-medium">
+                        <input type="text" name="name" placeholder="Name" />
+                     </div>
+                     <div class="col-6 col-12-medium">
+                        <input type="text" name="email" placeholder="Email" />
+                     </div>
+                     <div class="col-12">
+                        <input type="text" name="subject" placeholder="Subject" />
+                     </div>
+                     <div class="col-12">
+                        <textarea name="message" placeholder="Message" rows="6"></textarea>
+                     </div>
+                     <div class="col-12">
+                        <input type="submit" value="Send Message" />
+                     </div>
+                  </div>
+               </div>
+            </form>
+         </article>
+      </div>
+
+      <!-- Footer -->
+      <div id="footer">
+         <ul class="copyright">
+            <li>&copy; Untitled.</li>
+         </ul>
+      </div>
+
+   </div>
+
+   <!-- Scripts -->
+   <script src="assets/js/jquery.min.js"></script>
+   <script src="assets/js/browser.min.js"></script>
+   <script src="assets/js/breakpoints.min.js"></script>
+   <script src="assets/js/util.js"></script>
+   <script src="assets/js/main.js"></script>
+
+</body>
+<script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+<!--input p태그 관련 부분  -->
+<script>
+	function login_check(){
+		if($("input[name='login_email']").val() == ""){
+			$("#login_id_result").css("display", "block");
+			$("#login_id_result").text("아이디를 입력해주세요.");
+		}else{
+			if($("input[name='login_password']").val() == ""){
+				$("#login_id_result").css("display", "none");
+				
+				$("#login_pw_result").css("display", "block");
+				$("#login_pw_result").text("비밀번호를 입력해주세요.");
+			}
+		}
+	}
+	function join_check(){
+		var msg = "필수정보입니다.";
+		if($("input[name='join_email']").val() == ""){
+			$("#id_result").css("display", "block");
+			$("#id_result").text(msg);
+		}	
+		if($("input[name='join_password']").val() == ""){
+			$("#pw_result").css("display", "block");
+			$("#pw_result").text(msg);
+		}
+		if($("input[name='re_password']").val() == ""){
+			$("#re_pw_result").css("display", "block");
+			$("#re_pw_result").text(msg);
+		}else{
+			if($("input[name='password']").val() != $("input[name='re_password']").val()){
+				$("#re_pw_result").css("display", "block");
+				$("#re_pw_result").text("비밀번호가 일치하지 않습니다.");
+			}
+		}	
+		if($("input[name='name']").val() == ""){
+			$("#name_result").css("display", "block");
+			$("#name_result").text(msg);
+		}	
+		if($("input[name='birth']").val() == ""){
+			$("#birth_result").css("display", "block");
+			$("#birth_result").text(msg);
+		}
+		if($("input[name='tel']").val() == ""){
+			$("#tel_result").css("display", "block");
+			$("#tel_result").text(msg);
+		}	
+	}
+</script>
+<script>
+   function foodClicked() {
+      var btn = $("button[name='btn']");
+      $("#first_area").css("display", "none");
+      $("#second_area").css("display", "block");
+   }
+     function choiceClicked() {
+      var btn = $("button[name='btn']");
+      $("#second_area").css("display", "none");
+      $("#third_area").css("display", "block");
+
+   }
+
+   /* function foodClicked() {
+      var btn = document.getElementByName("food");
+      if(btn.style.display == "none"){
+         btn.style.display = "block";
+      }
+   }
+
+   function drinkClicked() {
+      var btn = document.getElementByName("drink");
+
+   } */
+</script>
+</html>

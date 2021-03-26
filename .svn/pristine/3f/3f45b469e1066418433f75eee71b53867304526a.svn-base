@@ -1,0 +1,46 @@
+package com.astral.app.scrap.vo;
+
+public class ScrapVO {
+	private int mem_no;
+	private String review_res;
+	private int review_star;
+	private String menu;
+	private String review_date;
+	
+	public ScrapVO() {;}
+	
+	public int getMem_no() {
+		return mem_no;
+	}
+	public String getDate() {
+		return review_date;
+	}
+
+	public void setDate(String review_date) {
+		this.review_date = review_date;
+	}
+
+	public void setMem_no(int mem_no) {
+		this.mem_no = mem_no;
+	}
+	public String getReview_res() {
+		return review_res;
+	}
+	public void setReview_res(String review_res) {
+		this.review_res = review_res;
+	}
+	public int getReview_star() {
+		return review_star;
+	}
+	public void setReview_star(int review_star) {
+		this.review_star = review_star;
+	}
+	public String getMenu() {
+		return menu;
+	}
+	public void setMenu(String menu) {
+		this.menu = menu;
+	}
+	
+	
+}

@@ -1,0 +1,50 @@
+package com.astral.app.food;
+
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.food.dao.FoodDAO;
+
+public class FoodRandomChoiceOkAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
+		PrintWriter out = resp.getWriter();
+		
+		FoodDAO f_dao = new FoodDAO();
+		List<String> food_list = new ArrayList<String>();
+		
+		int ppl_count = Integer.parseInt(req.getParameter("ppl_count"));
+		int price = Integer.parseInt(req.getParameter("price"));
+		int starv_level = Integer.parseInt(req.getParameter("starv_level"));
+		
+		Random r = new Random();
+		
+		food_list = f_dao.getFoodList(ppl_count, price, starv_level);
+		System.out.println(food_list);
+		System.out.println(food_list.size());
+		int index = r.nextInt(food_list.size());
+		
+		System.out.println(index);
+		
+		String random_food = food_list.get(index);
+		System.out.println(random_food);
+		
+		out.println(random_food);
+		return null;
+	}
+
+}

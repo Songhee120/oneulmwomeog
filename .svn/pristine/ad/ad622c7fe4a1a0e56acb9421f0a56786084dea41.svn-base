@@ -1,0 +1,37 @@
+package com.astral.app.review;
+
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.review.dao.ReviewDAO;
+
+public class ReviewHeartOkAction implements Action {
+
+   @Override
+   public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+      
+      ReviewDAO r_dao = new ReviewDAO();
+      
+      int review_no = Integer.parseInt(req.getParameter("review_no"));
+      
+      r_dao.heartCheck(review_no);
+      
+      int heartCnt = r_dao.heartCnt(review_no);
+      System.out.println("ReviewHeartOkAction.java 하트 개수:" + heartCnt);
+      
+      JSONObject obj = new JSONObject();
+      obj.put("heartCnt", heartCnt);
+      
+      resp.setContentType("application/x-json; charset=UTF-8");
+      PrintWriter out = resp.getWriter();
+      out.print(obj);
+      
+      return null;
+   }
+}

@@ -1,0 +1,70 @@
+package com.astral.app.review.dao;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.astral.app.review.vo.ReviewVO;
+import com.astral.mybatis.config.SqlMapConfig;
+
+public class ReviewDAO {
+	private static final int KEY = 3;
+
+	SqlSessionFactory sessionf = SqlMapConfig.getSqlMapInstance();
+	SqlSession sql_session;
+
+	public ReviewDAO() {
+		// 세션 팩토리로 세션을 열어주고 모든 쿼리문은 auto 커밋으로 설정
+		sql_session = sessionf.openSession(true);
+	}
+	
+	//회원번호
+	public int memberSeq(String mem_id) {
+		return sql_session.selectOne("review.memberSeq", mem_id);
+	}
+	//게시글 번호
+	public int getReviewSeq() {
+		return sql_session.selectOne("review.getSeq");
+	}
+	//게시글 추가
+	public boolean insertReview(ReviewVO r_vo) {
+		return sql_session.insert("review.insertReview", r_vo) == 1;
+	}
+	//베스트 게시글 가져오기
+	public List<ReviewVO> getBestReviews(){
+		return sql_session.selectList("review.getBestReviews");
+	}
+	
+	//모든 게시글(정보들) 가져오기
+	public ReviewVO getAllDetails(int review_no) {
+		return sql_session.selectOne("review.getAllDetails", review_no);
+	}
+	
+	//사용자 닉네임 가져오기(review_no로)
+	public String getMemberNickName(int review_no) {
+		return sql_session.selectOne("review.getMemberNickName", review_no);
+	}
+	
+	//음식점 주소 (띄워쓰기 2번째 문자열까지)
+	public String getResAddress(int review_no) {
+		return sql_session.selectOne("review.getResAddress", review_no);
+	}
+	
+	//조회수
+	public int updateViews(int review_no) {
+		return sql_session.update("review.updateViews", review_no);
+	}
+	
+	//게시글 삭제
+	public void deleteReview(int review_no) {
+		sql_session.delete("review.deleteReview", review_no);
+	}
+	
+	//게시글 수정
+	public void modifyReview(ReviewVO r_vo) {
+		sql_session.update("review.modifyReview", r_vo);
+	}
+	
+}

@@ -1,0 +1,43 @@
+package com.astral.app.member;
+
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.member.dao.MemberDAO;
+import com.astral.app.member.vo.MemberVO;
+
+public class MemberMyPageAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
+		HttpSession session = req.getSession();
+		MemberDAO m_dao = new MemberDAO();
+		MemberVO m_vo = m_dao.myInfo((String)session.getAttribute("mem_id"));
+		JSONObject obj = new JSONObject();
+		
+		if(m_vo != null) {
+			obj.put("mem_name", m_vo.getMem_name());
+			obj.put("mem_nickname", m_vo.getMem_nickname());
+			obj.put("mem_point", m_vo.getMem_point());
+			resp.setContentType("application/x-json; charset=UTF-8");
+			resp.getWriter().print(obj);
+			
+			/*session.setAttribute("mem_name", m_vo.getMem_name());
+			session.setAttribute("mem_nickname", m_vo.getMem_nickname());
+			session.setAttribute("mem_point", m_vo.getMem_point());*/
+		}
+		
+		return null;
+	}
+}

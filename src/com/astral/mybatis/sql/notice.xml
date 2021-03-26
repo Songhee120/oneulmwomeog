@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+
+	<!--전체 개수 가져오기 -->
+	<select id="getTotalCnt" resultType="_int">
+		SELECT COUNT(*) FROM TBL_NOTICE
+	</select>
+	
+	<!--단순 검색 개수 가져오기 -->
+	<select id="getSTotalCnt" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM TBL_NOTICE WHERE NOTICE_TITLE LIKE '%'||#{notice_search}||'%'
+	</select>
+	
+	<!--셀렉트만 가져오기 -->
+	<select id="getSelectTotalCnt" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM TBL_NOTICE WHERE NOTICE_TYPE = ${type}
+	</select>
+
+	<!--검색 + 셀렉트 개수 가져오기 -->
+	<select id="getSSTotalCnt" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM TBL_NOTICE WHERE NOTICE_TYPE = #{type} AND NOTICE_TITLE LIKE '%'||#{notice_search}||'%'
+	</select>
+	
+	<!-- 단순 리스트 가져오기 -->
+	<select id="getNoticeList" parameterType="map" resultType="noticeVO">
+		SELECT * FROM (SELECT ROWNUM R, N.* FROM (SELECT * FROM TBL_NOTICE ORDER BY NOTICE_DATE DESC) N) S
+		WHERE S.R BETWEEN #{startRow} AND #{endRow} 
+	</select>
+	
+	<!-- 단순 검색 리스트 가져오기 -->
+	<select id="getSNoticeList" parameterType="map" resultType="noticeVO">
+		SELECT * FROM (SELECT ROWNUM R, N.* FROM (SELECT * FROM TBL_NOTICE WHERE NOTICE_TITLE LIKE '%'||#{notice_search}||'%' ORDER BY NOTICE_DATE DESC) N) S
+		WHERE S.R BETWEEN #{startRow} AND #{endRow} 
+	</select>
+	
+	<!-- 셀렉트 리스트 가져오기 -->
+	<select id="getSelectNoticeList" parameterType="map" resultType="noticeVO">
+		SELECT * FROM (SELECT ROWNUM R, T.* FROM ((SELECT * FROM TBL_NOTICE WHERE NOTICE_TYPE = #{type}) ORDER BY 1 DESC) T) S
+		WHERE S.R BETWEEN #{startRow} AND #{endRow} 
+	</select>
+	
+	<!-- 검색 + 셀렉트 리스트 가져오기-->
+	<select id="getSSNoticeList" parameterType="map" resultType="noticeVO">
+		SELECT * FROM (SELECT ROWNUM R, T.* FROM ((SELECT * FROM TBL_NOTICE WHERE NOTICE_TYPE = #{type} AND NOTICE_TITLE LIKE '%'||#{notice_search}||'%') ORDER BY 1 DESC) T) S
+		WHERE S.R BETWEEN #{startRow} AND #{endRow} 
+	</select>
+	
+	<insert id="noticeWrite" parameterType="noticeVO">
+		INSERT INTO TBL_NOTICE VALUES(SEQ_NOTICE.NEXTVAL, #{notice_title}, #{notice_content}, #{notice_type}, SYSDATE)
+	</insert>
+	
+	<select id="noticeDetail" parameterType="_int" resultType="noticeVO">
+		SELECT * FROM TBL_NOTICE WHERE NOTICE_NO = #{notice_no}
+	</select>
+	
+	<delete id="noticeDelete" parameterType="_int">
+		DELETE FROM TBL_NOTICE WHERE NOTICE_NO = #{notice_no}
+	</delete>
+	
+	<update id="noticeModify" parameterType="noticeVO">
+		UPDATE TBL_NOTICE
+		SET NOTICE_TITLE = #{notice_title}, NOTICE_TYPE = #{notice_type}, NOTICE_CONTENT = #{notice_content}
+		WHERE NOTICE_NO = #{notice_no}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

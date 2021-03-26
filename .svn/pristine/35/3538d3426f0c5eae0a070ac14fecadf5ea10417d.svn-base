@@ -1,0 +1,24 @@
+package com.astral.app.time.vo;
+
+public class TimeVO {
+	private int time_no;
+	private String time;
+	
+	public TimeVO() {;}
+
+	public int getTime_no() {
+		return time_no;
+	}
+
+	public void setTime_no(int time_no) {
+		this.time_no = time_no;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+}

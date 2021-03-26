@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="files">
+	<insert id="insertFile" parameterType="filesVO">
+		INSERT INTO TBL_FILES VALUES(#{review_no}, #{file_name})
+	</insert>
+	
+	<select id="getDetail" parameterType="_int" resultType="filesVO">
+		SELECT * FROM TBL_FILES WHERE REVIEW_NO = #{review_no}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

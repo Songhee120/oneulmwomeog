@@ -1,0 +1,32 @@
+package com.astral.app.member;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.member.dao.MemberDAO;
+
+public class MemberFindPwAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
+		MemberDAO m_dao = new MemberDAO();
+		ActionForward forward = null;
+		
+		String mem_id = req.getParameter("email");
+		String mem_name = req.getParameter("name");
+		
+		if(m_dao.searchMyPw(mem_id, mem_name)) {
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/member/index.jsp");
+		}
+		
+		return forward;
+	}
+
+}

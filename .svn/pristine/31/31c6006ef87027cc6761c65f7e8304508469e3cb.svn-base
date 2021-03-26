@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="history">
+	<select id="history_list" parameterType="_int" resultType="historyVO">
+		SELECT * FROM TBL_HISTORY WHERE MEM_NO = #{mem_no}
+	</select>
+	
+	<select id="selectHistory" parameterType="_int" resultType="historyVO">
+		SELECT * FROM TBL_HISTORY WHERE HISTORY_NO = #{history_no}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

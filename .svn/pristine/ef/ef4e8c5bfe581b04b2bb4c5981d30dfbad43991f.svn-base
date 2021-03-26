@@ -1,0 +1,57 @@
+package com.astral.app.review;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.review.dao.FilesDAO;
+import com.astral.app.review.dao.ReviewDAO;
+import com.astral.app.review.vo.ReviewVO;
+
+public class ReviewShowOkAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
+		ReviewDAO r_dao = new ReviewDAO();
+		ReviewVO r_vo = new ReviewVO();
+		FilesDAO f_dao = new FilesDAO();
+		
+		HttpSession session = req.getSession();
+		
+		int review_no = Integer.parseInt(req.getParameter("review_no"));
+		
+		String mem_nickName = r_dao.getMemberNickName(review_no);
+		String res_address = r_dao.getResAddress(review_no);
+		
+		r_vo = r_dao.getAllDetails(review_no);
+		
+		String fileName = f_dao.getFileName(review_no);
+		
+		int updateViews = r_dao.updateViews(review_no);
+		
+		int memberNo = r_dao.memberSeq((String)session.getAttribute("mem_id"));
+		
+		if(r_vo != null) {
+			req.setAttribute("reviewBean", r_vo);
+			req.setAttribute("mem_nickName", mem_nickName);
+			req.setAttribute("res_address", res_address);
+			req.setAttribute("updateViews", updateViews);
+			req.setAttribute("memberNo", memberNo);
+			if(fileName != null) {
+				req.setAttribute("filesBeanList", fileName);
+			}
+			
+			ActionForward forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/review/myreview.jsp");
+			
+			return forward;
+		}
+		return null;
+	}
+}

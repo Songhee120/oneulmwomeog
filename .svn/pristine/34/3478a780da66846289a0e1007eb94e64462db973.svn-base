@@ -1,0 +1,45 @@
+package com.astral.app.scrap.dao;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.astral.app.scrap.vo.ScrapVO;
+import com.astral.mybatis.config.SqlMapConfig;
+
+public class ScrapDAO {
+	private static final int KEY = 3;
+
+	SqlSessionFactory sessionf = SqlMapConfig.getSqlMapInstance();
+	SqlSession sql_session;
+
+	public ScrapDAO() {
+		// 세션 팩토리로 세션을 열어주고 모든 쿼리문은 auto 커밋으로 설정
+		sql_session = sessionf.openSession(true);
+	}
+		
+		public List<ScrapVO> getNewScrap(int page) {
+	      HashMap<String, Integer> pageMap = cntRow(page);
+	      return sql_session.selectList("scrap.getNewScrap", pageMap);
+	   }
+	
+	// startRow, endRow 계산하기
+	   public HashMap<String, Integer> cntRow(int page) {
+	      int startRow = page * 4 + 1;
+	      int endRow = page * 4 + 4;
+
+	      HashMap<String, Integer> pageMap = new HashMap<String, Integer>();
+	      pageMap.put("startRow", startRow);
+	      pageMap.put("endRow", endRow);
+
+	      return pageMap;
+	   }
+	
+	//찜목록 삭제
+		public void deleteScrap(int mem_no) {
+			sql_session.delete("scrap.deleteScrap", mem_no);
+		}
+	
+}

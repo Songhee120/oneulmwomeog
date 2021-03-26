@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>astral</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>MemberFrontController</servlet-name>
+    <servlet-class>com.astral.app.member.MemberFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberFrontController</servlet-name>
+    <url-pattern>*.me</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ReviewFrontController</servlet-name>
+    <servlet-class>com.astral.app.review.ReviewFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewFrontController</servlet-name>
+    <url-pattern>*.re</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>NoticeFrontController</servlet-name>
+    <servlet-class>com.astral.app.notice.NoticeFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NoticeFrontController</servlet-name>
+    <url-pattern>*.no</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>FoodFrontController</servlet-name>
+    <servlet-class>com.astral.app.food.FoodFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FoodFrontController</servlet-name>
+    <url-pattern>*.fo</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>ScrapFrontController</servlet-name>
+    <servlet-class>com.astral.app.scrap.ScrapFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ScrapFrontController</servlet-name>
+    <url-pattern>*.sc</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>ConfirmFrontController</servlet-name>
+    <servlet-class>com.astral.app.confirm.ConfirmFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfirmFrontController</servlet-name>
+    <url-pattern>*.co</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

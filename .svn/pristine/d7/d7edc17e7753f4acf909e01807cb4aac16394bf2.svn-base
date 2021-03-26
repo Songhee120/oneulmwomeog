@@ -1,0 +1,70 @@
+package com.astral.app.review.dao;
+
+import java.util.Enumeration;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.astral.app.review.vo.FilesVO;
+import com.astral.mybatis.config.SqlMapConfig;
+import com.oreilly.servlet.MultipartRequest;
+
+public class FilesDAO {
+	private static final int KEY = 3;
+
+	SqlSessionFactory sessionf = SqlMapConfig.getSqlMapInstance();
+	SqlSession sql_session;
+	
+	public FilesDAO() {
+		// 세션 팩토리로 세션을 열어주고 모든 쿼리문은 auto 커밋으로 설정
+		sql_session = sessionf.openSession(true);
+	}
+	
+	public boolean insertFiles(int review_no, MultipartRequest multi) {
+		Enumeration<String> files = multi.getFileNames();
+		System.out.println(files);
+		boolean check = true;
+		System.out.println("insert들어옴");
+		FilesVO file = new FilesVO();
+		file.setReview_no(review_no);
+		int i = 0;
+		while(files.hasMoreElements()) {
+			//파일안에 있는 요소들(파일의 원본 명)
+			//사용자가 업로드한 파일명
+			String data = files.nextElement();
+			System.out.println(i++ + "번째 이미지:" + data);
+			//system name - 같은 이름이 여러개 갖을 수 없기 때문에, 파일명 옆에 1,2,3으로 구분!
+			//사용자가 업로드한 파일명을 통해서 중복이 없는 시스템파일명을 가져온다.
+			String systemName = multi.getFilesystemName(data);
+			
+			//슬롯 별로 검사하여 null이 아닐 떄에만 DB에 INSERT한다.
+			if(systemName== null) {continue;}
+			file.setFile_name(systemName);
+			System.out.println(file.getReview_no() + file.getFile_name());
+			if(sql_session.insert("files.insertFile", file) != 1) {
+				//추가 실패시 check에 false 대입.
+				check = false;
+				break;
+			}
+		}
+		return check;
+	}
+	
+	/*public List<String> getFileName(int review_no) {
+		return sql_session.selectList("files.getFileName", review_no);
+	}*/
+	
+	public String getFileName(int review_no) {
+		return sql_session.selectOne("files.getFileName", review_no);
+	}
+	
+	//첨부 파일 삭제
+	public void deleteFiles(int review_no) {
+		sql_session.delete("files.deleteFiles", review_no);
+	}
+	
+	public List<FilesVO> getDetail(int review_no){
+		return sql_session.selectList("files.getDetail", review_no);
+	}
+}

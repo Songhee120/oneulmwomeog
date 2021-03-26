@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mem">
+	<insert id="join" parameterType="memberVO">
+		INSERT INTO TBL_MEMBER
+		VALUES(
+		MEM_SEQ.NEXTVAL, #{mem_id}, #{mem_pw}, #{mem_name}, #{mem_nickname},
+		#{mem_tel}, #{mem_birth}, 0, 0, 0, NULL, 1
+		)
+	</insert>
+
+	<select id="checkId" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM TBL_MEMBER WHERE MEM_ID = #{mem_id}
+	</select>
+
+	<select id="login" parameterType="map" resultType="_int">
+		SELECT
+		COUNT(*) FROM TBL_MEMBER
+		WHERE MEM_ID = #{mem_id} AND MEM_PW = #{mem_pw}
+	</select>
+	
+	<select id="myInfo" parameterType="string" resultType="memberVO">
+		SELECT * FROM TBL_MEMBER WHERE MEM_ID = #{mem_id}
+	</select>
+	
+	<select id="searchMyId" parameterType="string" resultType="string">
+		SELECT MEM_ID FROM TBL_MEMBER WHERE MEM_NAME = #{mem_name}
+	</select>
+	
+	<update id="changeMyPw" parameterType="map">
+		UPDATE TBL_MEMBER SET MEM_PW = #{mem_pw} WHERE MEM_ID = #{mem_id} AND MEM_NAME = #{mem_name}
+	</update>
+	
+	<select id="checkNick" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM TBL_MEMBER WHERE MEM_NICKNAME = #{mem_nickname}
+	</select>
+	
+	<update id="changeMyNick" parameterType="map">
+		UPDATE TBL_MEMBER
+		SET MEM_NICKNAME = #{mem_nickname}
+		WHERE MEM_ID = #{mem_id}
+	</update>
+	
+	<select id="checkTel" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM TBL_MEMBER WHERE MEM_TEL = #{mem_tel}
+	
+	</select>
+	
+	<update id="changeMyTel" parameterType="map">
+	UPDATE TBL_MEMBER
+	SET MEM_TEL = #{mem_tel}
+	WHERE MEM_ID = #{mem_id}
+	</update>
+		
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

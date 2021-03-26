@@ -1,0 +1,34 @@
+package com.astral.app.review;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.member.dao.HistoryDAO;
+import com.astral.app.review.dao.ReviewDAO;
+
+public class ReviewWriteAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
+		ActionForward forward = new ActionForward();
+		HttpSession session = req.getSession();
+		ReviewDAO r_dao = new ReviewDAO();
+		HistoryDAO h_dao = new HistoryDAO();
+		String id = (String)session.getAttribute("mem_id");
+		int mem_no = r_dao.memberSeq(id);
+		
+		req.setAttribute("history_list", h_dao.history_list(mem_no));
+		
+		forward.setPath("/review/write_review.jsp");
+		forward.setRedirect(false);
+		
+		return forward;
+	}
+
+}

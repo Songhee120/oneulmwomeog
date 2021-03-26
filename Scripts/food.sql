@@ -1,0 +1,46 @@
+CREATE TABLE TBL_FOOD(
+   FOOD_NAME VARCHAR2(100),
+   MAIN_NO NUMBER(10),
+   SUB_NO NUMBER(10),
+   PPL_COUNT NUMBER(2),
+   PRICE NUMBER(10),
+   STARV_LEVEL NUMBER(2),
+   CONSTRAINT FOOD_PK PRIMARY KEY(FOOD_NAME)
+);
+
+INSERT INTO TBL_FOOD
+VALUES('삼겹살', 5, 4, 2, 2, 2);
+
+INSERT INTO TBL_FOOD
+VALUES('치킨', 5, 1, 2, 2, 2);
+
+SELECT FOOD_NAME FROM TBL_FOOD 
+WHERE (MAIN_NO = 1 OR SUB_NO = 1 OR MAIN_NO = 6) AND PPL_COUNT = 2 AND PRICE= 2 AND STARV_LEVEL = 2;
+/* 
+점심, 저녁 - 3
+아침, 점심 - 2
+아침 - 1
+상관없음 - 0
+
+인원수 
+혼자, 두명 이상 - 0
+두명 이상 - 1
+단체만 - 2
+
+가격
+10000원 이상 - 2
+10000원 이하 - 1
+가격무관 - 0
+
+굶주림
+굶주림 - 무한리필, 뷔페 3
+배고픔 - 일상 밥 2 
+출출함 - 분식집 위주, 타꼬야키 1 
+ 
+나이 무관 0
+나이 성인 1 */
+
+SELECT * FROM TBL_FOOD;
+DROP TABLE TBL_FOOD;
+TRUNCATE TABLE TBL_FOOD;
+

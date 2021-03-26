@@ -1,0 +1,29 @@
+package com.astral.app.member.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.astral.app.member.vo.HistoryVO;
+import com.astral.mybatis.config.SqlMapConfig;
+
+public class HistoryDAO {
+	private static final int KEY = 3;
+
+	SqlSessionFactory sessionf = SqlMapConfig.getSqlMapInstance();
+	SqlSession sql_session;
+
+	public HistoryDAO() {
+		// 세션 팩토리로 세션을 열어주고 모든 쿼리문은 auto 커밋으로 설정
+		sql_session = sessionf.openSession(true);
+	}
+	//회원에 맞는 히스토리 가져오기
+	public List<HistoryVO> history_list(int mem_no){
+		return sql_session.selectList("history.history_list", mem_no);
+	}
+	//회원이 선택한 히스토리 가져오기
+	public HistoryVO selectHistory(int history_no) {
+		return sql_session.selectOne("history.selectHistory", history_no);
+	}
+}

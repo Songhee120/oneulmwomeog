@@ -1,0 +1,32 @@
+package com.astral.app.member;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.member.dao.HistoryDAO;
+import com.astral.app.member.dao.MemberDAO;
+
+public class MemberLogOutAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		//세션 삭제
+		
+		HttpSession session = req.getSession();
+		ActionForward forward = new ActionForward();
+		session.invalidate();
+		//req.setCharacterEncoding("UTF-8");
+		
+//		HistoryDAO.stop = true;
+		MemberLoginOkAction.thread.interrupt();
+		forward.setRedirect(true);
+		forward.setPath(req.getContextPath() + "/member/index.jsp");
+		
+		return forward;
+	}
+
+}

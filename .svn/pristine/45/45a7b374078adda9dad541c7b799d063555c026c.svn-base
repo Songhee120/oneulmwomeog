@@ -1,0 +1,62 @@
+package com.astral.app.review;
+
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.review.dao.FilesDAO;
+import com.astral.app.review.dao.ReviewDAO;
+import com.astral.app.review.vo.ReviewVO;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+public class ReviewWriteOkAction implements Action {
+
+   @Override
+   public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+      req.setCharacterEncoding("UTF-8");
+      resp.setCharacterEncoding("UTF-8");
+
+      FilesDAO f_dao = new FilesDAO();
+      ReviewDAO r_dao = new ReviewDAO();
+      ReviewVO r_vo = new ReviewVO();
+
+      // 리눅스 서버에 프로젝트 업로드 시 아래의 경로를 사용해준다.
+      // request.getServletContext().getRealPath("/") + "\\upload폴더명"
+      String saveFolder = "C:\\web_1530_YR\\project\\workspace\\astral\\WebContent\\upload";
+
+      int fileSize = 5 * 1024 * 1024; // 5M (메가바이트)
+
+      MultipartRequest multi = null;
+      
+      multi = new MultipartRequest(req, saveFolder, fileSize, "UTF-8", new DefaultFileRenamePolicy());
+      
+      r_vo.setReview_star(Integer.parseInt(multi.getParameter("star_grade")));
+      r_vo.setReview_content(multi.getParameter("my_review_text"));
+      r_vo.setMem_no(Integer.parseInt(multi.getParameter("mem_no")));
+      
+      if(r_dao.insertReview(r_vo)) {
+         if(f_dao.insertFiles(r_dao.getReviewSeq(), multi)) {
+            ActionForward forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/member/login_index.jsp");
+            
+            return forward;
+         }
+      }
+      
+      PrintWriter out = resp.getWriter();
+      resp.setContentType("text/html;charset=utf-8");
+
+      out.println("<script>");
+      out.println("alert('게시글 등록 실패. 다시 시도해주세요')");
+      out.println("</script>");
+      out.close();
+
+      return null;
+   }
+
+}

@@ -1,0 +1,63 @@
+package com.astral.app.member;
+
+import java.io.PrintWriter;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+
+public class MemberSendMailAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
+		PrintWriter out = resp.getWriter();
+		String host = "smtp.naver.com";
+		final String user = "akqjqcjs7@naver.com";
+		final String pw = "";
+		
+		String to = req.getParameter("mail");
+
+		Properties props = new Properties();
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", 587);
+		props.put("mail.smtp.auth", "true");
+		
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(user, pw);
+			}
+		}); 
+		
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(user));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			
+			message.setSubject("메일 테스트");
+			
+			message.setText("54321");
+			resp.setContentType("text/html;charset=utf-8");
+			out.println("ok");
+			out.close();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
+}

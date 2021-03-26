@@ -1,0 +1,18 @@
+package com.astral.app.member.dao;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.astral.app.member.vo.Profile_FilesVO;
+import com.astral.mybatis.config.SqlMapConfig;
+
+public class Profile_FilesDAO {
+	SqlSessionFactory sessionf = SqlMapConfig.getSqlMapInstance();
+	SqlSession sql_session;
+
+	public Profile_FilesDAO() {
+		// 세션 팩토리로 세션을 열어주고 모든 쿼리문은 auto 커밋으로 설정
+		sql_session = sessionf.openSession(true);
+	}
+
+}

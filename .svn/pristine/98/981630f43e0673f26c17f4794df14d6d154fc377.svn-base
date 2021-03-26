@@ -1,0 +1,68 @@
+package com.astral.app.confirm;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.astral.action.ActionForward;
+import com.astral.app.confirm.dao.ConfirmDAO;
+import com.astral.app.confirm.vo.ConfirmVO;
+import com.astral.app.notice.vo.NoticeVO;
+
+public class ConfirmListAction {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
+		ActionForward forward = new ActionForward();
+		ConfirmDAO c_dao = new ConfirmDAO();
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date now = new Date();
+		String now_date = format.format(now);
+		
+		//파라미터로 넘어온 페이지를 받는다.
+		String temp = req.getParameter("page");
+
+		//넘어온 파라미터에 값의 여부에 따라 1페이지를 보여줄지 해당 페이지를 보여줄지 정한다.
+		int page = temp == null? 1 : Integer.parseInt(temp);
+		
+		int pageSize = 5;
+		
+		int endRow = page * pageSize;
+		int startRow = endRow - (pageSize - 1);
+		
+		
+		int startPage = ((page - 1) / pageSize) * pageSize + 1;
+		int endPage = startPage + 4;
+		
+	
+		
+		//검색했을 경우, 셀렉했을 경우 있으므로 같이 보내준다.
+		List<ConfirmVO> confirmList = c_dao.getConfirmList(startRow, endRow);
+		//날짜에 시간 빼기
+		for(ConfirmVO confirm : confirmList) {
+		
+			if(confirm.getReview_date().substring(0, 10).compareTo(now_date.substring(0, 10)) == 0) {
+				confirm.setReview_date(confirm.getReview_date().substring(11, 16));
+			}else {
+				confirm.setReview_date(confirm.getReview_date().substring(0, 10));
+			}
+		}
+		
+		//검색 한 이후에 결과를 유치한채 페이지가 변환되어야한다. 그래서 검색결과와 셀렉트를 같이 내보내주어 유지시킨다.
+
+		req.setAttribute("nowPage", page);
+		req.setAttribute("startPage", startPage);
+		req.setAttribute("endPage", endPage);
+		req.setAttribute("confirmList", confirmList);
+		forward.setPath("/confirm/confirm.jsp");
+		forward.setRedirect(false);
+		
+		
+		return forward;
+	}
+}

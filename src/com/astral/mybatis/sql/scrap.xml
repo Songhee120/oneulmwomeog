@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="scrap">
+   <select id="addScrap" parameterType="map">
+      INSERT INTO TBL_SCRAP
+      VALUES(SCRAP_SEQ.NEXTVAL, #{mem_no}, #{review_no})
+   </select>
+
+   <delete id="deleteScrap" parameterType="map">
+      DELETE FROM TBL_SCRAP
+      WHERE MEM_NO = #{mem_no} AND REVIEW_NO = #{review_no}
+   </delete>
+
+   <select id="scrap_check" parameterType="map" resultType="_int">
+      SELECT
+      COUNT(*) FROM TBL_SCRAP WHERE REVIEW_NO = #{review_no} AND MEM_NO =
+      #{mem_no}
+   </select>
+
+   <delete id="deleteOnlyScrap" parameterType="_int">
+      DELETE FROM TBL_SCRAP
+      WHERE REVIEW_NO = #{review_no}
+   </delete>
+
+   <select id="getScrapList" parameterType="_int" resultType="scrapVO">
+      SELECT * FROM TBL_SCRAP WHERE MEM_NO = #{mem_no} ORDER BY SCRAP_NO DESC
+   </select>
+
+   <select id="getScrap" parameterType="map" resultType="scrapVO">
+      SELECT * FROM
+         (SELECT ROWNUM R, D.* FROM
+            (SELECT * FROM TBL_SCRAP WHERE MEM_NO = #{mem_no} ORDER BY SCRAP_NO DESC) D) A
+      WHERE A.R BETWEEN ${startRow} AND ${endRow}
+   </select>
+
+</mapper>

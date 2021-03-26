@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="profile_files">
+	<insert id="insertFile" parameterType="profile_filesVO">
+		INSERT INTO TBL_PROFILE_FILES VALUES(#{mem_no}, #{profile_file_name})
+	</insert>
+	
+	<select id="getFileName" parameterType="_int" resultType="string">
+		SELECT PROFILE_FILE_NAME FROM TBL_PROFILE_FILES WHERE MEM_NO = #{mem_no}
+	</select>
+	
+	<update id="updateFile" parameterType="profile_filesVO">
+		UPDATE TBL_PROFILE_FILES
+		SET PROFILE_FILE_NAME = #{profile_file_name}
+		WHERE MEM_NO = #{mem_no}
+	</update>
+</mapper>

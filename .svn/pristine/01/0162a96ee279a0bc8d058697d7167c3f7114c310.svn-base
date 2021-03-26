@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="review">
+	<select id="memberSeq" parameterType="string" resultType="_int">
+		SELECT #{mem_no} FROM TBL_MEMBER WHERE MEM_ID = #{mem_id}
+	</select>
+	
+	<select id="getSeq" resultType="_int">
+		SELECT REVIEW_SEQ.CURRVAL FROM DUAL
+	</select>
+	
+	<insert id="insertReview" parameterType="reviewVO">
+		<!-- INSERT INTO TBL_REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{review_content}, #{mem_no}, 0, 0, SYSDATE, #{review_star}, #{res_name}, #{res_url}, NULL, #{review_address}) -->
+		INSERT INTO TBL_REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{review_content}, #{mem_no}, 0, 0, SYSDATE, #{review_star}, NULL, NULL, NULL, NULL)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

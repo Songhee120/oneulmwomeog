@@ -1,0 +1,157 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>아이디 찾기</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../assets/css/main.css?ver=1" />
+<link rel="stylesheet" href="../assets/css/astral.css?ver=7" />
+<link rel="stylesheet" href="../assets/css/prac.css?ver=8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet" />
+
+<script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+<noscript>
+	<link rel="stylesheet" href="../assets/css/noscript.css" />
+</noscript>
+</head>
+<style>
+* {
+	font-family: 'Do Hyeon', sans-serif;
+}
+
+button {
+	border-radius: 10px;
+	font-size: 18px;
+}
+
+#showMyId {
+	height: 400px;
+	margin-bottom: 0em;
+}
+
+header {
+	text-align: center;
+	margin: 0px 0 0.5em 0;
+}
+
+#showMyId .title_area {
+	font-size: 45px;
+	font-weight: 900;
+}
+
+#showMyId .title_area a {
+	text-decoration: none;
+	color: #ffcccc;
+}
+
+#showMyId .content_header {
+	position: relative;
+	margin: 10px 0px;
+}
+
+#showMyId .content_header .id_text {
+	height: 100%;
+	font-size: 30px;
+	border-bottom: 2px solid;
+	width: fit-content;
+	margin-bottom: 3px;
+}
+
+#showMyId .content_header .content_text {
+	margin-bottom: 10px;
+	font-size: 18px;
+}
+
+#showMyId .box1 {
+	text-align: center;
+	position: relative;
+	z-index: 100;
+	padding: 40px;
+	border: 2px solid;
+	font-size: 33px;
+}
+
+#showMyId .idBtn_area {
+	padding: 40px 0px 0px;
+	text-align: center;
+}
+</style>
+<body class="is-preload">
+
+<%--    <c:if test="${mem_id eq null}">
+   		<script>
+   			alert("아이디가 없습니다. 다시 시도해주세요.");
+   		</script>
+   </c:if> --%>
+
+	<div id="wrapper">
+
+		<nav id="nav">
+			<a href="#" class="icon solid fa-user"><span>마이아이디</span></a>
+		</nav>
+
+		<div id="main">
+			<article id="myId" class="panel">
+				<section id="showMyId">
+
+					<header class="title_area">
+						<a href="index.jsp">오늘뭐먹</a>
+					</header>
+
+					<div class="content_header">
+						<p class="id_text">아이디찾기</p>
+						<p class="content_text ">회원님의 정보와 일치하는 아이디 입니다.</p>
+
+						<div class="showId_area">
+							<div class="box1">
+								<!-- 아이디 뿌려주는 el문 -->
+								<c:set var="mem_id" value="${requestScope.mem_id}" />
+								${mem_id}
+							</div>
+
+							<div class="idBtn_area">
+								<button type="button" onclick="goHomePage()">홈으로 가기</button>
+								<button type="button" onclick="goFindPwPage()">비밀번호 찾기</button>
+							</div>
+						</div>
+					</div>
+
+				</section>
+			</article>
+		</div>
+
+		<!-- Footer -->
+		<div id="footer">
+			<ul class="copyright">
+				<li>&copy; Untitled.</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="../assets/js/jquery.min.js"></script>
+	<script src="../assets/js/browser.min.js"></script>
+	<script src="../assets/js/breakpoints.min.js"></script>
+	<script src="../assets/js/util.js"></script>
+	<script src="../assets/js/main.js"></script>
+</body>
+<script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="../assets/js/astral.js"></script>
+<script>
+	function goHomePage() {
+		location.href = "index.jsp#home";
+	}
+
+	function goFindPwPage() {
+		location.href = "findPw.jsp#findmypw"
+	}
+</script>
+</html>

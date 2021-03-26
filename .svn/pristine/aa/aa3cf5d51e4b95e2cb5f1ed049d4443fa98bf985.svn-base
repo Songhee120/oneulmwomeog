@@ -1,0 +1,50 @@
+package com.astral.app.member;
+
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.reflection.SystemMetaObject;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.member.dao.MemberDAO;
+import com.astral.app.member.vo.MemberVO;
+
+public class MemberJoinOkAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+
+		ActionForward forward = null;
+		MemberDAO m_dao = new MemberDAO();
+		MemberVO m_vo = new MemberVO();
+
+		m_vo.setMem_id(req.getParameter("join_email"));
+		m_vo.setMem_pw(req.getParameter("join_password"));
+		m_vo.setMem_name(req.getParameter("name"));
+		m_vo.setMem_nickname(req.getParameter("nickname"));
+		m_vo.setMem_tel(req.getParameter("tel"));
+		m_vo.setMem_birth(req.getParameter("year") + req.getParameter("mon") + req.getParameter("day"));
+		System.out.println(m_vo.getMem_birth());
+		
+		if (m_dao.join(m_vo)) {
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/member/MemberLogin.me");
+		} else {
+			PrintWriter out = resp.getWriter();
+			resp.setContentType("text/html;charset=utf-8");
+			out.println("<script>");
+			out.println("alert('회원가입 실패')");
+			out.println("</script>");
+			out.close();
+		}
+
+		return forward;
+	}
+
+}

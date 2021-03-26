@@ -1,0 +1,39 @@
+package com.astral.app.member;
+
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.member.dao.MemberDAO;
+
+public class MemberChangePwOkAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		MemberDAO m_dao = new MemberDAO();
+		PrintWriter out = resp.getWriter();
+		
+		ActionForward forward = new ActionForward();
+		String mem_id = req.getParameter("seq");
+		
+		
+		req.setAttribute("boardBean", m_dao.myInfo(mem_id));
+		String mem_pw = req.getParameter("mem_pw");
+		String mem_newpw = req.getParameter("mem_newpw");
+				
+		if(m_dao.changeMyPw(mem_id, mem_pw, mem_newpw)) {
+			
+			forward.setRedirect(false);
+			forward.setPath("/member/index.jsp");
+		}
+			
+		
+		return forward;
+	}
+
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<!--
+   Astral by Pixelarity
+   pixelarity.com | hello@pixelarity.com
+   License: pixelarity.com/license
+-->
+<html>
+
+<head>
+
+<title>유저 정보 수정</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets/css/main.css" />	
+<link rel="stylesheet" href="assets/css/astral.css?ver=9" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+
+
+<noscript>
+   <link rel="stylesheet" href="assets/css/noscript.css" />
+</noscript>
+</head>
+
+<style>
+
+/* 이미지 업로드 */
+.photoFrame {
+	width: 80px;
+	height: 80px;
+	float: left;
+}
+
+.photoFrame:hover {
+	cursor: pointer;
+}
+
+
+.input_wrap input[type="file"] {
+	/* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+</style>
+<body class="is-preload">
+
+   <!-- Wrapper-->
+   <div id="wrapper">
+
+      <!-- Nav -->
+      <nav id="nav">
+         <a href="#findmyid" class="icon solid fa-user"><span>FindId</span></a>      
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+         
+         <!--아이디 찾기 2020/11-27-->
+         <!--어떠한 음식점에 대해 리뷰를 남길지
+        	 음식점을 어떻게 선택하지?-->
+         
+         <article id="findmyid" class="panel">
+            <header style="text-align: center;">
+               <h2>리뷰 작성</h2>
+            </header>
+            <section id="my_review">
+               <div id="my_review_div1">
+                  <span id="my_review_res">맥도날드<span id="res_text">에 대해 솔직한 리뷰를 남겨주세요.</span></span>
+               </div>
+               <form>
+	               <div id="my_review_div2">
+	                  <div id="my_review_div2-1">
+	                     <p id="star_grade">
+	                        <span style="margin-right:20px;">
+	                        <a href="#">★</a> 
+	                        <a href="#">★</a> 
+	                        <a href="#">★</a> 
+	                        <a href="#">★</a> 
+	                        <a href="#">★</a>
+	                     </span>
+	                     </p>
+	                  </div>
+	                  <div id="my_review_div2-2">
+	                     <textarea id="my_review_text" placeholder="식사는 즐거우셨나요?맛과 분위기가 궁금해요!"></textarea>
+	                  </div>
+	               </div>
+	               <div id="my_review_div3">
+	                  <span style="color:black;" id="text_limit">(0 / 1000)</span>
+	               </div>
+	               <div id="my_review_div4">
+	 					<div class="input_wrap" style="height:40px;">
+							<a href="javascript:" onclick="fileUploadAction();" class="my_button"></a>						
+							<label for="input_imgs">사진 업로드<input type="file" id="input_imgs" multiple></label>							
+						</div>
+						<div class="imgs_wrap">
+							<img id="review_img">
+						</div>
+	               </div>
+				   <div id="my_review_div5">
+						<div id="review_stock_div">
+							<input type="button" id="review_btn" value="리뷰저장">
+						</div>
+						<div id="review_work_div">
+							<input type="button" id="review_btn" value="취소" onclick="review_cancel()">
+							<input type="submit" id="review_btn" value="완성">
+						</div>
+					</div>
+				</form>          
+            </section>
+            
+         </article>    
+      </div>
+
+      <!-- Footer -->
+      <div id="footer">
+         <ul class="copyright">
+            <li>&copy; Untitled.</li>
+         </ul>
+      </div>
+
+   </div>
+
+   <!-- Scripts -->
+   <script src="assets/js/jquery.min.js"></script>
+   <script src="assets/js/browser.min.js"></script>
+   <script src="assets/js/breakpoints.min.js"></script>
+   <script src="assets/js/util.js"></script>
+   <script src="assets/js/main.js"></script>
+   <script src="assets/js/astral.js?ver=6"></script>
+</body>
+<script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+</script>
+<script>
+	//파일이 저장되는 곳
+	var sel_files = [];
+	
+	$(document).ready(function(){
+		//이미지 태그 구역에 이미지 파일 첨부시 바로 보여줌
+		$("#input_imgs").on("change", handleImgFileSelect);
+	});
+	
+	function fileUploadAction(){
+		console.log("fileUploadAction");
+		//강제 이벤트 실행
+		$("#input_imgs").trigger('click');
+	}
+	
+	function handleImgFileSelect(event){
+		
+		//이미지 정보들을 초기화
+		sel_files = [];
+		//선택한 요소의 내용 삭제
+		$(".imgs_wrap").empty();
+		
+		var files = event.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		var index = 0;
+		filesArr.forEach(function(f){
+			sel_files.push(f);
+			
+			var reader = new FileReader();
+			
+			reader.onload = function(event){
+				var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + event.target.result + "\" data-file='" + f.name +"' class='selProductFile' title='Click to remove'></a>";
+				$(".imgs_wrap").append(html);
+				index++;
+			}
+			reader.readAsDataURL(f);
+		})
+	}
+	function deleteImageAction(index){
+		console.log("index : " + index);
+		sel_files.splice(index, 1);
+		
+		var img_id = "#img_id_" + index;
+		$(img_id).remove();
+		
+		console.log(sel_files);
+	}
+</script>
+
+</html>

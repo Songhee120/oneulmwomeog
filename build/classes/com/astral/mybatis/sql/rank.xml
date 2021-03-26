@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="rank">
+   <select id="rank_review" parameterType="_int" resultType="_int">
+      <![CDATA[SELECT COUNT(*) FROM TBL_RANK WHERE RANK_REVIEW <= #{mem_review_cnt}]]>
+   </select>
+   
+   <select id="rank_heart" parameterType="_int" resultType="_int">
+      <![CDATA[SELECT COUNT(*) FROM TBL_RANK WHERE RANK_HEART <= #{mem_heart}]]>
+   </select>
+   
+   <update id="mem_rank_update" parameterType="_int">
+      UPDATE TBL_MEMBER
+      SET MEM_RANK = #{new_mem_rank}
+      WHERE MEM_NO = #{mem_no}
+   </update>
+   
+   <select id="getFileName" parameterType="_int" resultType="string">
+      SELECT RANK_FILE_NAME FROM TBL_RANK WHERE RANK_NO = #{new_mem_rank}
+   </select>
+   
+   <!-- 회원의 해당 등급명 -->
+   <select id="getRankName" parameterType="_int" resultType="string">
+      SELECT RANK_NAME FROM TBL_RANK WHERE RANK_NO = #{new_mem_rank}
+   </select>
+</mapper>

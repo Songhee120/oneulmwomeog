@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<!--
+   Astral by Pixelarity
+   pixelarity.com | hello@pixelarity.com
+   License: pixelarity.com/license
+-->
+<html>
+<head>
+<title>Untitled</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+<script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+<noscript>
+   <link rel="stylesheet" href="assets/css/noscript.css" />
+</noscript>
+</head>
+<style>
+{
+   font-family: 'Do Hyeon', sans-serif;
+}
+
+
+
+/* 여기서부터 리뷰페이지 css */
+/* 프로필 원 */ 
+.profile {
+    width: 60px;
+    height: 60px; 
+    border-radius: 70%;
+    overflow: hidden;
+    background-color:pink;
+    display:block;
+    float:left;
+}
+
+/* 평점 별 */
+.star_rating {
+   font-size:0; 
+   letter-spacing:-4px;
+}
+
+/* 평점 별 */
+.star_rating a {
+    font-size:40px;
+    letter-spacing:0;
+    display:inline-block;
+    margin-left:5px;
+    text-decoration:none;
+    float:right;
+    color:#f2f2f2;
+   }
+   
+.star_rating a:first-child {margin-left:0;}
+
+/* 평점 별 눌렀을 때 색깔 변경 X */
+/* .star_rating a.on {color:pink;} */
+
+/* 즐겨찾기 */
+.scrap {
+   font-size:0; 
+   letter-spacing:-4px;
+}
+
+/* 즐겨찾기 */
+.scrap a {
+    font-size:30px;
+    letter-spacing:0;
+    display:inline-block;
+    margin-left:5px;
+    text-decoration:none;
+    float:right;
+    color:#f2f2f2;
+   }
+   
+.scrap a:first-child {margin-left:0;}
+
+/* 즐겨찾기 클릭 시 노란색 테두리 */
+.scrap a.on {color:#ffd480;}
+
+
+/* 좋아요(하트) */
+.heart {
+   font-size:0; 
+   letter-spacing:-4px;
+}
+
+/* 좋아요(하트) */
+.heart a {
+    font-size:30px;
+    letter-spacing:0;
+    display:inline-block;
+    margin-left:5px;
+    text-decoration:none;
+    float:right;
+    color:#f2f2f2;
+    margin-top:3px;
+   }
+   
+.heart a:first-child {margin-left:0;}
+
+/* 하트 눌렀을 때 색깔 변경 */
+.heart a.on {color:red;}
+</style>
+<body class="is-preload">
+
+   <!-- Wrapper-->
+   <div id="wrapper">
+
+      <!-- Nav -->
+      <nav id="nav"> 
+      <a href="#review" class="icon solid fa-folder"><span>리뷰</span></a> 
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+         
+      
+        
+         <!-- 리뷰 페이지 -->
+         <!-- 리뷰 페이지 작업한 곳 -->
+         <article id="review" class="panel" style="padding-top:20px; overflow:hidden;">
+            <header style="margin-bottom:5px;">	 
+               <h2 style="color:pink">리뷰</h2>
+               <span style="float:left; margin-top:0px;"><a href="#" class="restaurant_name" style="text-decoration:none; color:pink; font-size:20px; margin-right:5px;"># 미친짬뽕 - 홍대</a></span>
+               <hr style="padding:0px; border-top:solid 3px #ddd; margin-top:15px;">
+            </header>
+            <div id="review_user" style="width:100%; overflow:hidden; margin-top:10px; margin-bottom:10px;">     
+               <div id="user_info" style="width:50%; overflow:hidden; float:left;">
+                  <div class="profile" style="margin-top:5px;">
+                     <img src="images/test2.jpg" style="width:60px; height:60px;"/>
+                  </div>
+                  <span style="margin-left:10px; font-size:18px;">Nickname</span><br>
+                  <span style="margin-left:10px; font-size:15px;"><img src="images/pencil.png" style="width:12px; height:12px;"/> 10</span>
+                  <span style="margin-left:10px; font-size:15px;"><img src="images/heart.png" style="width:12px; height:12px;"/> 17</span>          
+               </div>
+               <div id="review_star" style="width:50%; height:50px; float:right;">
+                  <p class="star_rating">
+                   <a href="#">★</a>
+                     <a href="#">★</a>
+                   <a href="#">★</a>
+                   <a href="#">★</a>
+                   <a href="#">★</a>
+                  </p>
+                  <br>                  
+               	  <p class="heart"><a href="#">♥</a></p>
+               	  <p style="float:right; font-size:15px; margin-top:3px; margin-right:5px;">좋아요</p>
+               	  <span class="scrap" style="float:right; margin-top:3px; margin-right:12px;"><a href="#">★</a></span>
+               	  <p style="float:right; font-size:15px; margin-top:3px; margin-right:5px;">가고싶어요</p>              	                                         
+               </div>               	              
+            </div>
+            <form style="margin-bottom:0;">
+               <div class="col-12" style="width:100%; hegiht:300px;">
+                  <textarea class="review_textarea" style="width:100%; overflow:auto; height:350px; font-size:15px;resize:none;" readonly>
+ 마구로치즈아에 : 녹진하니 혀에서 녹는맛이 일품이다. 기린과 궁합이 좋았으나, 싱겁게 먹는 내 입에는 살짝 짠편.
+ 
+사바산도 : 솔직히 기대가 가장 컸던 음식, 기대한 대로의 맛이었다. 고등어의 강한 풍미를 매쉬드 포테이토와 빵의 고소한 맛이 감싸며, 단무지와 시소가 마무리하는 완벽한 맛이었다. 이음식도 기린과 함께했는데, 고등어가 입에 있는채로 맥주를 먹으니 비린맛이 올라온것이 아쉬운점.
+
+우니 : 계절에 비해 훌륭한 맛을 자랑한다. 상태가 좋대서 시켜봤는데, 군내도 안나고 깔끔하고 부드러운 풍미가 아주 입에 맞았다. 내가 어린 입맛이라 그런지 고구마 소츄인 키로쿠 무여과와의 궁합은 그저 그랬다. 차라리 하이볼로 산미를 좀 주는것이 낫지 않았을까 싶다.   
+               
+                  </textarea>
+               </div>
+            </form>
+            <div style="width:100%; overflow-x:scroll; white-space:nowrap;">
+               <img src="images/pic01.jpg"/>
+               <img src="images/pic02.jpg"/>
+               <img src="images/pic03.jpg"/>
+               <img src="images/pic01.jpg"/>                                     
+            </div>
+         </article>
+      </div>
+
+      <!-- Footer -->
+      <div id="footer">
+         <ul class="copyright">
+            <li>&copy; Untitled.</li>
+         </ul>
+      </div>
+
+   </div>
+
+   <!-- Scripts -->
+   <script src="assets/js/jquery.min.js"></script>
+   <script src="assets/js/browser.min.js"></script>
+   <script src="assets/js/breakpoints.min.js"></script>
+   <script src="assets/js/util.js"></script>
+   <script src="assets/js/main.js"></script>
+   <script src="assets/js/astral.js?ver=1"></script>
+</body>
+<script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+   /* 리뷰 평점 별점으로 매기기 */
+   $( ".star_rating a" ).click(function() {
+       $(this).parent().children("a").removeClass("on");
+       $(this).addClass("on").prevAll("a").addClass("on");
+       return false;
+   });
+   
+   /* 하트 좋아요 누르기 */
+   var count = 0;
+   
+   $( ".heart a" ).click(function(){
+	   count += 1;
+	   
+	   if(count % 2 == 0){
+	   	$(this).removeClass("on");
+	   }else{
+		$(this).addClass("on");   
+	   }
+   })
+   
+   $( ".scrap a" ).click(function(){
+	   count += 1;
+	   
+	   if(count % 2 == 0){
+	   	$(this).removeClass("on");
+	   }else{
+		$(this).addClass("on");   
+	   }
+   })
+</script>
+</html>
+
+
+
+

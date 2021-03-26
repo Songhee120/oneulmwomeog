@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="review">
+	<select id="memberSeq" parameterType="string" resultType="_int">
+		SELECT MEM_NO FROM TBL_MEMBER WHERE MEM_ID = #{mem_id}
+	</select>
+	
+	<select id="getSeq" resultType="_int">
+		SELECT REVIEW_SEQ.CURRVAL FROM DUAL
+	</select>
+	
+	<insert id="insertReview" parameterType="reviewVO">
+		INSERT INTO TBL_REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{review_content}, #{mem_no}, 0, 0, SYSDATE, #{review_star}, #{res_name}, #{res_url}, #{review_done}, #{res_address})
+	</insert>
+	
+	<select id="getBestReviews" resultType="reviewVO">
+   		<![CDATA[SELECT * FROM (SELECT * FROM TBL_REVIEW WHERE (TO_CHAR(REVIEW_DATE, 'YYYYMMDD') = (SELECT TO_CHAR(SYSDATE, 'YYYYMMDD') FROM DUAL)) ORDER BY REVIEW_HEART DESC) WHERE ROWNUM < 13]]>           
+	</select>
+	
+	<!--리뷰 정보 -->
+	<select id="getAllDetails" parameterType="_int" resultType="reviewVO">
+		SELECT * FROM TBL_REVIEW WHERE REVIEW_NO = #{review_no}
+	</select>
+	
+	<!-- myreview에서 사용할 닉네임 -->
+	<select id="getMemberNickName" parameterType="_int" resultType="string">
+		SELECT TM.MEM_NICKNAME FROM TBL_MEMBER TM, TBL_REVIEW TR WHERE TM.MEM_NO = TR.MEM_NO AND TR.REVIEW_NO = #{review_no}
+	</select>
+	
+	<!-- 음식점 주소 (띄워쓰기 2번째 문자열까지) -->
+	<select id="getResAddress" parameterType="_int" resultType="string">
+		SELECT SUBSTR(RES_ADDRESS,0,INSTR(RES_ADDRESS,' ',1,2)) FROM TBL_REVIEW WHERE REVIEW_NO = #{review_no}
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="updateViews" parameterType="_int">
+		UPDATE TBL_REVIEW
+		SET REVIEW_VIEWS = REVIEW_VIEWS + 1
+		WHERE REVIEW_NO = #{review_no}
+	</update>
+	
+	<!-- 좋아요 -->
+	<update id="heartCheck" parameterType="_int">
+		UPDATE TBL_REVIEW
+		SET REVIEW_HEART = REVIEW_HEART + 1 
+		WHERE REVIEW_NO = #{review_no}
+	</update>
+	
+	<!-- 좋아요 개수 -->
+	<select id="heartCnt" parameterType="_int" resultType="_int">
+		SELECT REVIEW_HEART FROM TBL_REVIEW WHERE REVIEW_NO = #{review_no}
+	</select>
+	
+	<!-- 좋아요 취소 -->
+	<update id="heartCheck_cancel" parameterType="_int">
+		UPDATE TBL_REVIEW
+		SET REVIEW_HEART = REVIEW_HEART - 1  
+		WHERE REVIEW_NO = #{review_no}
+	</update>
+	
+	<delete id="deleteReview" parameterType="_int">
+		DELETE FROM TBL_REVIEW WHERE REVIEW_NO = #{review_no}
+	</delete>
+	
+	<update id="modifyReview" parameterType="reviewVO">
+		UPDATE TBL_REVIEW
+		SET REVIEW_CONTENT = #{review_content}, REVIEW_STAR = #{review_star}, RES_NAME = #{res_name}, RES_URL = #{res_url}, RES_ADDRESS = #{res_address}, REVIEW_DONE = #{review_done}
+		WHERE REVIEW_NO = #{review_no}
+	</update>
+</mapper>
+
+
+
+
+

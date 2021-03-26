@@ -1,0 +1,55 @@
+package com.astral.app.confirm.vo;
+
+public class ConfirmVO {
+	private int review_no;
+	private String store_name;
+	private String store_address;
+	private int review_view;
+	private String review_date;
+	
+	public ConfirmVO() {;}
+
+	public int getReview_no() {
+		return review_no;
+	}
+
+	public void setReview_no(int review_no) {
+		this.review_no = review_no;
+	}
+
+	public String getStore_name() {
+		return store_name;
+	}
+
+	public void setStore_name(String store_name) {
+		this.store_name = store_name;
+	}
+
+	public String getStore_address() {
+		return store_address;
+	}
+
+	public void setStore_address(String store_address) {
+		this.store_address = store_address;
+	}
+
+	public int getReview_view() {
+		return review_view;
+	}
+
+	public void setReview_view(int review_view) {
+		this.review_view = review_view;
+	}
+
+	public String getReview_date() {
+		return review_date;
+	}
+
+	public void setReview_date(String review_date) {
+		this.review_date = review_date;
+	}
+	
+	
+	
+	
+}

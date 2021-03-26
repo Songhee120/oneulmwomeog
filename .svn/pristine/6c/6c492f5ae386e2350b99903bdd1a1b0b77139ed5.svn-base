@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="heart">
+	<select id="memberSeq" parameterType="string" resultType="_int">
+		SELECT MEM_NO FROM TBL_MEMBER WHERE MEM_ID = #{mem_id}
+	</select>
+
+	<select id="getSeq" resultType="_int">
+		SELECT REVIEW_SEQ.CURRVAL FROM DUAL
+	</select>
+
+	<select id="heart_check" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM TBL_HEART WHERE REVIEW_NO = #{review_no} AND MEM_NO = #{mem_no}
+	</select>
+	
+	<insert id="heart_update" parameterType="map">
+		INSERT INTO TBL_HEART VALUES(#{review_no}, #{mem_no})
+	</insert>
+	
+	<delete id="heart_delete" parameterType="map">
+		DELETE FROM TBL_HEART WHERE REVIEW_NO = #{review_no} AND MEM_NO = #{mem_no}
+	</delete>
+	
+	<select id="heart_cnt" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM TBL_HEART WHERE REVIEW_NO = #{review_no}
+	</select>
+	
+	<update id="updateReviewHeart" parameterType="_int">
+		UPDATE TBL_REVIEW
+		SET REVIEW_HEART = (SELECT COUNT(*) FROM TBL_HEART WHERE REVIEW_NO = #{review_no})
+		WHERE REVIEW_NO = #{review_no}
+	</update>
+</mapper>
+
+
+
+
+

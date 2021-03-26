@@ -1,0 +1,31 @@
+package com.astral.app.member;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.astral.action.Action;
+import com.astral.action.ActionForward;
+import com.astral.app.member.dao.MemberDAO;
+
+public class MemberFindIdAction implements Action {
+	
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
+		ActionForward forward = null;
+		MemberDAO m_dao = new MemberDAO();
+		
+		//아이디를 담은 변수 
+		String id = m_dao.searchMyId(req.getParameter("name"));
+		
+		if(id != null) {
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/member/memberShowId.jsp");
+			req.setAttribute("mem_id", id);
+		}
+		return forward;
+	}
+}
